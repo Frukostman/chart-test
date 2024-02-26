@@ -4,7 +4,7 @@ const styling = {
   }, 
   colors: ['#006cba', '#000', '#abbaba', '#ff7b04', '#c43e3e', '#4b4bb0', '#720034', '#608864',],
   backgroundColor: '#efefef',
-}
+};
 
 let gap;
 let globalAmount = 4;
@@ -40,7 +40,6 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
       backgroundColor: styling.backgroundColor,
       height: 350,
     },
-
     yAxis: {
       title: {
         text: null
@@ -49,10 +48,9 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
         format: '{value}%',
       },
     },
-
     xAxis: {
       accessibility: {
-            rangeDescription: `Range: ${years.earliestYear} to ${years.latestYear}` 
+        rangeDescription: `Range: ${years.earliestYear} to ${years.latestYear}` 
       },
       min: years.earliestYear,
       max: years.latestYear,
@@ -61,21 +59,18 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
       tickInterval: interval,
       tickLength: 0,
     },
-
     legend: {
         layout: 'proximate',
         align: 'right',
-        // x: 300,
         symbolStroke: 0,
         labelFormatter: function () {
           return `<p style="color:${this.color};">${this.name}</p>`;
       }
     },
-    // PLOT OPTIONS
     plotOptions: {
         series: {
           label: {
-              connectorAllowed: false
+            connectorAllowed: false
           },
           pointStart: years.earliestYear,
           marker: {
@@ -103,7 +98,6 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
     },
     // the data goes here
     series: data,
-
     navigation: {
       buttonOptions: {
           enabled: false
@@ -124,8 +118,6 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
       headerFormat: htmlTooltipHeader,
       pointFormat: htmlTooltipContent,
       footerFormat: htmlTooltipFooter,
-      // headerFormat: '<span><p style="font-size: 1em; font-weight: 600; margin-bottom: 5px;">{point.x}</p></span></br>',
-      // pointFormat: '{series.name}: <b>{point.y:,.2f}% </b></br>',
       useHTML: true,
       valueDecimals: 2,
       valueSuffix: ' %',
@@ -133,25 +125,19 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
         fontSize: '12px',
         fontWeight: 400,
       },
-      // formatter: function () {
-      //     return this.points.reduce(function (s, point) {
-      //         return s + '<br/>' + point.series.name + ': ' +
-      //             point.y + 'm';
-      //     }, '<b>' + this.x + '</b>');
-      // },
     },
     responsive: {
       rules: [{
-          condition: {
-              maxWidth: 500,
-          },
-          chartOptions: {
-              legend: {
-                  layout: 'horizontal',
-                  align: 'center',
-                  verticalAlign: 'bottom'
-              }
+        condition: {
+          maxWidth: 500,
+        },
+        chartOptions: {
+          legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
           }
+        }
       }]
     }
   };
@@ -170,20 +156,20 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
   document.querySelector('.btn_expand').addEventListener('click', function() {
     chart.fullscreen.toggle();
   });
-}
+};
 
 const getCSVData = async () => {
   const route = 'scripts/TRANEN_g4.csv';    
   const res = await fetch(route);
   return await res.text();
-}
+};
 
 const getCountryNames = async () => {
   const url = 'https://restcountries.com/v3.1/all';
   const response = await fetch(url);
   const data = await response.json();
-  return data
-}
+  return data;
+};
 
 function processCountries(data) {
   const countries = [];
@@ -194,7 +180,7 @@ function processCountries(data) {
     });
   }
   return countries.sort();
-}
+};
 
 const matchCountries = (countries, nameSets) => {
   countries.forEach((el, idx) => {
@@ -202,22 +188,22 @@ const matchCountries = (countries, nameSets) => {
     if (index !== -1) {
       el.name = nameSets[index].name;
     } else if (el.name === '') {
-      countries.splice(idx, 1)
+      countries.splice(idx, 1);
     } else if ((el.name === 'OWID_WRL') || (el.name === 'OWID_USS')) {
-      const acr = el.name.substring(5)
+      const acr = el.name.substring(5);
       el.name = (acr === 'WRL') ? 'World' : acr;
     } else {
       console.error('error: ', el)
     }
   });
   return countries;
-}
+};
 
 document.addEventListener('DOMContentLoaded', async function() {
 
   const rawData = await getCSVData();
   const countries = Object.values(await getCountryNames());
-  const countrySet = processCountries(countries).sort()
+  const countrySet = processCountries(countries).sort();
 
   const lines = rawData.split('\r\n');
 
@@ -227,12 +213,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     seriesData.push({ name: values[0], year: values[1], values: Number(values[2])});
 
     if (yearRange.earliestYear > Number(values[1]) || i === 1) {
-      yearRange.earliestYear = Number(values[1])
+      yearRange.earliestYear = Number(values[1]);
     }
     if (yearRange.latestYear < Number(values[1]) || i === 1) {
-      yearRange.latestYear = Number(values[1])
+      yearRange.latestYear = Number(values[1]);
     }
-  }
+  };
 
   const countriesArray = [];
   const countriesObject = seriesData.reduce((result, currentItem, idx) => {
@@ -248,7 +234,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   }, {});
 
   countriesArray.push(...Object.values(countriesObject));
-  const allCountriesComplete = matchCountries(countriesArray, countrySet)
+  const allCountriesComplete = matchCountries(countriesArray, countrySet);
   selectedCountries = allCountriesComplete;
 
   const countryList = document.querySelector('#country-list form');
@@ -261,29 +247,29 @@ document.addEventListener('DOMContentLoaded', async function() {
     const label = document.createElement('label');
     label.for = el.name;
     label.innerText = el.name;
-    label.appendChild(input)
-    countryList.appendChild(label)
+    label.appendChild(input);
+    countryList.appendChild(label);
   });
   
   // SET LISTENERS AND ACTIONS
 
   // open modal btn
   const selectCountriesBtn = document.querySelector('#buttons_select-countries')
-  selectCountriesBtn.addEventListener('click', function(e) {
+  selectCountriesBtn.addEventListener('click', function() {
     const modal = document.querySelector('#countryModal')
     modal.classList.toggle('hide');
   });
 
   // close modal btn
   const closeModalBtn = document.querySelector('#btn_close')
-  closeModalBtn.addEventListener('click', function(e) {
+  closeModalBtn.addEventListener('click', function() {
     const modal = document.querySelector('#countryModal')
     modal.classList.toggle('hide');
   });
 
   // select countries btn
   const submitModalBtn = document.querySelector('#btn_submit')
-  submitModalBtn.addEventListener('click', function(e) {
+  submitModalBtn.addEventListener('click', function() {
     const modal = document.querySelector('#countryModal')
     
     const markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -299,16 +285,13 @@ document.addEventListener('DOMContentLoaded', async function() {
       alert('Por favor seleccione un país para visualizar en el gráfico');
     } else {
       modal.classList.toggle('hide');
-      // globalAmount = markedCheckbox.length;
-      // selectedCountries = newData;
-
       renderChart(newData, newData.length, yearRange, 1000)
     }
   });
 
   // clear modal btn
   const clearModalBtn = document.querySelector('#btn_clear')
-  clearModalBtn.addEventListener('click', function(e) {
+  clearModalBtn.addEventListener('click', function() {
     const markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
     markedCheckbox.forEach(el => {
       el.checked = false;
@@ -318,32 +301,27 @@ document.addEventListener('DOMContentLoaded', async function() {
   //search modal btn
   const modalInput = document.querySelector('#modal_search')
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  modalInput.addEventListener('keyup', function(e) {
+  modalInput.addEventListener('keyup', function() {
+    const value = modalInput.value;
+    const length = value.length;
 
-  const value = modalInput.value;
-  const length = value.length;
-
-  if (length === 0) {
-    checkboxes.forEach(box => {
-      box.parentNode.style = 'opacity: 1;';
-      box.disabled = false;
-    });
-  } else if (length != 0 ) {
-    checkboxes.forEach(box => {
-      const name = box.name.substring(0,length);
-      if ((name.toLowerCase() != value) && (box.checked === false)) {
-        box.parentNode.style = 'opacity: 0.4;';
-        box.disabled = true;
-      } else {
+    if (length === 0) {
+      checkboxes.forEach(box => {
         box.parentNode.style = 'opacity: 1;';
         box.disabled = false;
-      }
-    });
-  }
-
-  
-  
-  
+      });
+    } else if (length != 0 ) {
+      checkboxes.forEach(box => {
+        const name = box.name.substring(0,length);
+        if ((name.toLowerCase() != value) && (box.checked === false)) {
+          box.parentNode.style = 'opacity: 0.4;';
+          box.disabled = true;
+        } else {
+          box.parentNode.style = 'opacity: 1;';
+          box.disabled = false;
+        }
+      });
+    }  
   });
 
   // play animation button
@@ -376,25 +354,19 @@ document.addEventListener('DOMContentLoaded', async function() {
   maxRangeInput.value = yearRange.latestYear;
 
   minRangeInput.addEventListener('input', function(e) {
-    // maxRangeInput.min = e.target.value;
     minYearLabel.textContent = e.target.value;
     yearRange.earliestYear = Number(e.target.value);
-
     gap = yearRange.latestYear - yearRange.earliestYear;
-    console.log(gap)
     if (gap <= 1) return;
 
     renderChart(selectedCountries, selectedCountries.length, yearRange, 0)
   });
+
   maxRangeInput.addEventListener('input', function(e) {
-    // minRangeInput.max = e.target.value;
     maxYearLabel.textContent = e.target.value;
     yearRange.latestYear = Number(e.target.value);
-
     gap = yearRange.latestYear - yearRange.earliestYear;
-    console.log(gap)
     if (gap <= 1) return;
-
 
     renderChart(selectedCountries, selectedCountries.length, yearRange, 0)
   });
@@ -406,5 +378,5 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
 
   //first initial render
-  renderChart(selectedCountries, globalAmount, yearRange, 1000);
+  renderChart(selectedCountries, globalAmount, yearRange);
 });
