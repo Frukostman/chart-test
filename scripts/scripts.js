@@ -16,17 +16,15 @@ const htmlTooltipHeader = '<table style="padding: 10px;"><tr><th style="border-b
 const htmlTooltipContent = '<tr><td style="color: {series.color}; font-size: 12px;">⏺ \&nbsp </td><td>{series.name} </td><td style="text-align: right">{point.y}</td></tr>';
 const htmlTooltipFooter = '</table>';
 
-const renderChart = (data, amount, years, renderDuration) => {
+const renderChart = (data, amount, years, renderDuration = 1000) => {
 
+  console.log(amount)
   // shuffle array to get inital random configuration
   data = data.sort(() => Math.random() - 0.5);
   data = data.splice(0, amount);
   selectedCountries = data;
 
   const interval = Math.round((years.latestYear - years.earliestYear) / 6)
-
-
-  if (!renderDuration) renderDuration = 1000;
 
   const chartConfigObj = {
     title: {
@@ -39,6 +37,7 @@ const renderChart = (data, amount, years, renderDuration) => {
         fontFamily: styling.fonts.chivo,
       },
       backgroundColor: styling.backgroundColor,
+      height: 350,
     },
 
     yAxis: {
@@ -288,12 +287,12 @@ document.addEventListener('DOMContentLoaded', async function() {
   submitModalBtn.addEventListener('click', function(e) {
     const modal = document.querySelector('#countryModal')
     
-    var markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
+    const markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
     const newData = [];
     markedCheckbox.forEach(el => {
       const value = el.value;
       allCountriesComplete.filter((el) => {
-        if (el.name === value) newData.push(el)
+        if (el.name.toLowerCase() === value.toLowerCase()) newData.push(el)
       });
     });
 
@@ -303,8 +302,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       modal.classList.toggle('hide');
       // globalAmount = markedCheckbox.length;
       // selectedCountries = newData;
-      console.log(newData.length)
-      console.log(newData)
 
       renderChart(newData, newData.length, yearRange, 1000)
     }
@@ -313,7 +310,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   // clear modal btn
   const clearModalBtn = document.querySelector('#btn_clear')
   clearModalBtn.addEventListener('click', function(e) {
-    var markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
+    const markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
     markedCheckbox.forEach(el => {
       el.checked = false;
     });
@@ -321,7 +318,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   //search modal btn
   const modalInput = document.querySelector('#modal_search')
-  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   modalInput.addEventListener('keyup', function(e) {
 
   const value = modalInput.value;

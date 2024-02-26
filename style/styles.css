@@ -187,8 +187,15 @@ button {
     justify-content: space-between;
 }
 
-.range-section input {
-    margin: 5px 10px;
+.range-section .inputs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.range-section input#max-year-range {
+    position: absolute;
+    top: 5%;
+    width: 100%;
 }
 
 .range-section p {
@@ -214,7 +221,7 @@ button {
 
 .chart-section .modal {
     position: absolute;
-    bottom: 14%;
+    bottom: 15%;
     z-index: 1;
 }
 
