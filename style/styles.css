@@ -177,8 +177,8 @@ button#play-pause-button:disabled {
     border-color: var(--c-light-green);
 }
 
-#play-pause-button:hover {
-    color: var(--c-light-green);
+button#play-pause-button:hover {
+    background-color: var(--c-light-green);
 }
 
 .range-section {
