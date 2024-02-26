@@ -8,8 +8,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Roboto:wght@100&display=swap" rel="stylesheet">
- 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Roboto:wght@100&display=swap"
+    rel="stylesheet">
+
   <link rel="stylesheet" href="/style/styles.css">
 
   <title>Test</title>
@@ -17,6 +19,7 @@
 
 <body>
   <section class="chart-section">
+    <!-- Header -->
     <header class="header">
       <picture>
         <img class="header_image" src="/style/logo.png" alt="logo fundar">
@@ -29,6 +32,7 @@
       </div>
     </header>
     <hr>
+    <!-- top buttons -->
     <div class="buttons">
       <div class="buttons-left">
         <button type="button" id="buttons_select-countries" data-bs-toggle="modal" data-bs-target="#countryModal">
@@ -43,12 +47,9 @@
           Compartir
         </button>
         <button type="button" class="btn_expand">
-          <svg width="16px" height="16px" viewBox="0 0 400 400"
-              xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <path d="M 175 100 L 300 100 L 300 225"
-                  fill="none" stroke="black" stroke-width="25" />
-            <path d="M 100 175 L 100 300 L 225 300"
-                  fill="none" stroke="black" stroke-width="25" />
+          <svg width="16px" height="16px" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <path d="M 175 100 L 300 100 L 300 225" fill="none" stroke="black" stroke-width="25" />
+            <path d="M 100 175 L 100 300 L 225 300" fill="none" stroke="black" stroke-width="25" />
           </svg>
         </button>
       </div>
@@ -60,29 +61,28 @@
 
     <!-- The Modal -->
     <div class="modal hide" id="countryModal">
-        <div class="modal_content">
+      <div class="modal_content">
 
-          <!-- Modal Header -->
-          <div class="modal_header">
-            <input id="modal_search" class="modal_search" type="text" placeholder="Buscar">
-            <button type="button" id="btn_submit" class="btn btn_submit" data-bs-dismiss="modal">Seleccionar</button>
-            <button type="button" id="btn_clear" class="btn btn_clear" data-bs-dismiss="modal">Borrar Selección</button>
-            <button type="button" id="btn_close" class="btn btn_close" title="close">
-              <i class="fa fa-close"></i>
-            </button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal_body">
-            <div id="country-list">
-              <form>
-              </form>
-             </div>
+        <!-- Modal Header -->
+        <div class="modal_header">
+          <input id="modal_search" class="modal_search" type="text" placeholder="Buscar">
+          <button type="button" id="btn_submit" class="btn btn_submit" data-bs-dismiss="modal">Seleccionar</button>
+          <button type="button" id="btn_clear" class="btn btn_clear" data-bs-dismiss="modal">Borrar Selección</button>
+          <button type="button" id="btn_close" class="btn btn_close" title="close">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal_body">
+          <div id="country-list">
+            <form>
+            </form>
           </div>
         </div>
+      </div>
 
     </div>
-
+    <!-- Animation controls -->
     <div id="play-controls">
       <div class="play-section">
         <button id="play-pause-button" class="fa fa-play" title="play"></button>
@@ -90,16 +90,16 @@
       </div>
       <div class="range-section">
         <div class="inputs">
-          <input type="range" id="min-year-range" class="year-range" step="1"/>
-          <input type="range" id="max-year-range" class="year-range" step="1"/>
+          <input type="range" id="min-year-range" class="year-range" step="1" />
+          <input type="range" id="max-year-range" class="year-range" step="1" />
         </div>
-        <!-- <div class="range-refs">
+        <div class="range-refs">
           <p class="min-year"></p>
           <p class="max-year"></p>
-        </div> -->
+        </div>
       </div>
     </div>
-
+    <!-- note and source -->
     <div class="note">
       <p>
         Fuente: Our World in Data.
@@ -112,7 +112,7 @@
     </div>
 
   </section>
-   
+
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>

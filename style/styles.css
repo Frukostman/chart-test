@@ -127,7 +127,6 @@ button {
 .highcharts-data-table table {
     font-family: "Chivo", sans-serif;
     border-collapse: collapse;
-    /* border: 1px solid #ebebeb; */
     margin: 10px auto;
     text-align: center;
     width: 100%;
@@ -141,7 +140,6 @@ button {
 
 .highcharts-tooltip-box {
     fill: var(--c-white);
-    /* fill-opacity: 0.6; */
     stroke-width: 1px;
     border-radius: 0;
     box-shadow: 0;
@@ -175,10 +173,6 @@ button {
     color: var(--c-light-green);
 }
 
-
-
-
-
 .range-section {
     display: flex;
     flex-direction: column;
@@ -196,9 +190,6 @@ button {
     display: flex;
     flex-direction: column;
 }
-
-
-
 
 input[type="range"]{
     -webkit-appearance: none;
@@ -218,7 +209,7 @@ input[type="range"]{
     content:'';
     width: 100%;
     background-color: var(--c-light-green);
-    height: 2px;
+    height: 1px;
     position: absolute;
     margin: auto;
     top: 0;
@@ -226,30 +217,20 @@ input[type="range"]{
     border-radius: 5px;
     z-index: 0;
 }
-input[type="range"]::-webkit-slider-runnable-track{
-    -webkit-appearance: none;
-    height: 5px;
-}
-input[type="range"]::-moz-range-track{
-    -moz-appearance: none;
-    height: 5px;
-}
-input[type="range"]::-ms-track{
-    appearance: none;
-    height: 5px;
-}
-input[type="range"]::-webkit-slider-thumb{
+
+input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 10px;
     width: 10px;
     background-color: var(--c-light-green);
     cursor: pointer;
-    margin-top: -2px;
+    margin-top: 0;
     pointer-events: auto;
     border-radius: 50%;
     z-index: 1;
 }
-input[type="range"]::-moz-range-thumb{
+
+input[type="range"]::-moz-range-thumb {
     -webkit-appearance: none;
     height: 10px;
     width: 10px;
@@ -259,7 +240,8 @@ input[type="range"]::-moz-range-thumb{
     pointer-events: auto;
     z-index: 1;
 }
-input[type="range"]::-ms-thumb{
+
+input[type="range"]::-ms-thumb {
     appearance: none;
     height: 10px;
     width: 10px;
@@ -269,10 +251,27 @@ input[type="range"]::-ms-thumb{
     pointer-events: auto;
     z-index: 1;
 }
-/* input[type="range"]:active::-webkit-slider-thumb{
-    background-color: #ffffff;
-    border: 3px solid #3264fe;
-} */
+
+.range-refs {
+    position: relative;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+.range-refs p {
+    position: absolute;
+    width: 100%;
+}
+
+.range-refs p.min-year {
+    text-align: start;
+    transform: translateX(-12px);
+}
+
+.range-refs p.max-year {
+    text-align: end;
+    transform: translateX(12px);
+}
 
 .note {
     font-size: 0.6rem;
@@ -340,7 +339,6 @@ input[type="range"]::-ms-thumb{
     color: var(--c-white);
 }
 
-
 .modal .btn {
     border: 1px solid var(--c-black);
 }
@@ -363,7 +361,6 @@ input[type="range"]::-ms-thumb{
     display: flex;
     flex-wrap: wrap;
 }
-
 
 #country-list label {
     display: flex;

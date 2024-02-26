@@ -6,6 +6,7 @@ const styling = {
   backgroundColor: '#efefef',
 }
 
+let gap;
 let globalAmount = 4;
 let selectedCountries;
 
@@ -15,9 +16,6 @@ const chartContainerId = 'chart-container';
 const htmlTooltipHeader = '<table style="padding: 10px;"><tr><th style="border-bottom: 1px solid black; text-align: center; padding: 0 0 10px;" colspan="3">{point.key}</th></tr>';
 const htmlTooltipContent = '<tr><td style="color: {series.color}; font-size: 12px;">⏺ \&nbsp </td><td>{series.name} </td><td style="text-align: right">{point.y}</td></tr>';
 const htmlTooltipFooter = '</table>';
-let gap;
-
-
 
 const renderChart = (data, amount, years, renderDuration = 1000) => {
 
@@ -362,16 +360,16 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   });
   //min year range
-  // const minYearLabel = document.querySelector('#play-controls .min-year')
-  // minYearLabel.textContent = yearRange.earliestYear;
+  const minYearLabel = document.querySelector('#play-controls .min-year')
+  minYearLabel.textContent = yearRange.earliestYear;
   const minRangeInput = document.querySelector('#min-year-range');
   minRangeInput.min = yearRange.earliestYear;
   minRangeInput.max = yearRange.latestYear - 1;
   minRangeInput.value = yearRange.earliestYear;
 
   //max year range
-  // const maxYearLabel = document.querySelector('#play-controls .max-year')
-  // maxYearLabel.textContent = yearRange.latestYear;
+  const maxYearLabel = document.querySelector('#play-controls .max-year')
+  maxYearLabel.textContent = yearRange.latestYear;
   const maxRangeInput = document.querySelector('#max-year-range');
   maxRangeInput.min = yearRange.earliestYear + 1;
   maxRangeInput.max = yearRange.latestYear;
@@ -379,7 +377,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   minRangeInput.addEventListener('input', function(e) {
     // maxRangeInput.min = e.target.value;
-    // minYearLabel.textContent = e.target.value;
+    minYearLabel.textContent = e.target.value;
     yearRange.earliestYear = Number(e.target.value);
 
     gap = yearRange.latestYear - yearRange.earliestYear;
@@ -390,7 +388,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
   maxRangeInput.addEventListener('input', function(e) {
     // minRangeInput.max = e.target.value;
-    // maxYearLabel.textContent = e.target.value;
+    maxYearLabel.textContent = e.target.value;
     yearRange.latestYear = Number(e.target.value);
 
     gap = yearRange.latestYear - yearRange.earliestYear;
