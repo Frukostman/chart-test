@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <section class="chart-section">
+    <header class="header">
+      <picture>
+        <img class="header_image" src="/logo.png" alt="logo fundar">
+      </picture>
+      <div class="header_texts">
+        <h1 class="header_title">Porcentaje de la energía primaria proveniente de fuentes bajas en carbono</h1>
+        <p class="header_subtitle">La energía baja en carbono se define como la suma de fuentes nucleares y renovables.
+          Las fuentes renovables incluyen energía hidroeléctrica, solar, eólica, geotérmica, undimotriz y mareomotriz y
+          bioenergía. No se incluyen los biocombustibles tradicionales.</p>
+      </div>
+    </header>
+    <hr>
+    <div class="buttons">
+      <div class="buttons-left">
+        <button type="button" id="buttons_select-countries" data-bs-toggle="modal" data-bs-target="#countryModal">
+          Seleccionar países
+        </button>
+      </div>
+      <div class="buttons-right">
+        <button type="button" class="btn_download">
+          Descargar
+        </button>
+        <button type="button" class="btn_share">
+          Compartir
+        </button>
+        <button type="button" class="btn_expand">
+          <svg width="16px" height="16px" viewBox="0 0 400 400"
+              xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <path d="M 175 100 L 300 100 L 300 225"
+                  fill="none" stroke="black" stroke-width="25" />
+            <path d="M 100 175 L 100 300 L 225 300"
+                  fill="none" stroke="black" stroke-width="25" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <figure class="highcharts-figure">
+      <div id="chart-container"></div>
+    </figure>
+
+    <!-- The Modal -->
+    <div class="modal hide" id="countryModal">
+        <div class="modal_content">
+
+          <!-- Modal Header -->
+          <div class="modal_header">
+            <input id="modal_search" class="modal_search" type="text" placeholder="Buscar">
+            <button type="button" id="btn_submit" class="btn btn_submit" data-bs-dismiss="modal">Seleccionar</button>
+            <button type="button" id="btn_clear" class="btn btn_clear" data-bs-dismiss="modal">Borrar Selección</button>
+            <button type="button" id="btn_close" class="btn btn_close" data-bs-dismiss="modal">x</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal_body">
+            <div id="country-list">
+              <form>
+              </form>
+             </div>
+          </div>
+        </div>
+
+    </div>
+
+    <div id="play-controls">
+      <div class="play-section">
+        <button id="play-pause-button" class="fa fa-play" title="play"></button>
+        <label for="play-pause-button">Ver por año</label>
+      </div>
+      <div class="range-section">
+        <div class="inputs">
+          <input type="range" id="min-year-range" class="year-range" step="1"/>
+          <input type="range" id="max-year-range" class="year-range" step="1"/>
+        </div>
+        <div class="range-refs">
+          <p class="min-year"></p>
+          <p class="max-year"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p>
+        Fuente: Our World in Data.
+      </p>
+      <p>
+        Nota: La energía primaria se calcula utilizando el "método de sustitución", que tiene en cuenta las
+        ineficiencias de
+        la producción de energía de los combustibles fósiles.
+      </p>
+    </div>
+
+  </section>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&family=Roboto:wght@100&display=swap"
+    rel="stylesheet">
+
+  <script src="/scripts.js"></script>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</body>
+
+</html>

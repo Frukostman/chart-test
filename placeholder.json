@@ -1,0 +1,20 @@
+{
+  "title": "Porcentaje de la energía primaria proveniente de fuentes bajas en carbono",
+  "subtitle": "La energía baja en carbono se define como la suma de fuentes nucleares y renovables. Las fuentes renovables incluyen energía hidroeléctrica, solar, eólica, geotérmica, undimotriz y mareomotriz y bioenergía. No se incluyen los biocombustibles tradicionales.",
+  "source": "Our World in Data",
+  "note": "Nota: La energía primaria se calcula utilizando el 'método de sustitución', que tiene en cuenta las ineficiencias de la producción de energía de los combustibles fósiles",
+  "colors": [
+    {"white": "#FFFFFF"},
+    {"light-gray": "#EFEFEF"},
+    {"medium-gray": "#E4E6E6"},
+    {"light-blue": "#CCE3F1"},
+    {"light-green": "#ABBABA"},
+    {"blue": "#006CBA"},
+    {"black": "#000000"},
+    {"red": "#C43E3E"},
+    {"purple": "#4B4BB0"},
+    {"bordeaux": "#720034"},
+    {"green": "#608684"},
+    {"orange": "#FF7B04"}
+  ]
+}
