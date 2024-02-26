@@ -4,12 +4,6 @@ const styling = {
   }, 
   colors: [ '#000', '#abbaba', '#006cba', '#c43e3e', '#4b4bb0', '#720034', '#608864', '#ff7b04'],
   backgroundColor: '#efefef',
-  // header: [
-  //   'font-size: 1em; font-weight; 600;'
-  // ]
-    // 'borderBottom': '1px solid black',
-    // 'color': 'red',
-  
 }
 
 let globalAmount = 6;
@@ -21,8 +15,6 @@ const chartContainerId = 'chart-container';
 const htmlTooltipHeader = '<table style="padding: 10px;"><tr><th style="border-bottom: 1px solid black; text-align: center; padding: 0 0 10px;" colspan="3">{point.key}</th></tr>';
 const htmlTooltipContent = '<tr><td style="color: {series.color}; font-size: 12px;">⏺ \&nbsp </td><td>{series.name} </td><td style="text-align: right">{point.y}</td></tr>';
 const htmlTooltipFooter = '</table>';
-
-
 
 const renderChart = (data, amount, years, renderDuration) => {
 
@@ -181,7 +173,7 @@ const renderChart = (data, amount, years, renderDuration) => {
 }
 
 const getCSVData = async () => {
-  const route = './TRANEN_g4.csv';    
+  const route = 'scripts/TRANEN_g4.csv';    
   const res = await fetch(route);
   return await res.text();
 }
