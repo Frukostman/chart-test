@@ -2,11 +2,11 @@ const styling = {
   fonts: {
     chivo: 'Chivo',
   }, 
-  colors: [ '#000', '#abbaba', '#006cba', '#c43e3e', '#4b4bb0', '#720034', '#608864', '#ff7b04'],
+  colors: ['#006cba', '#000', '#abbaba', '#ff7b04', '#c43e3e', '#4b4bb0', '#720034', '#608864',],
   backgroundColor: '#efefef',
 }
 
-let globalAmount = 6;
+let globalAmount = 4;
 let selectedCountries;
 
 const yearRange = { earliestYear: 0, latestYear: 0 };
@@ -15,16 +15,19 @@ const chartContainerId = 'chart-container';
 const htmlTooltipHeader = '<table style="padding: 10px;"><tr><th style="border-bottom: 1px solid black; text-align: center; padding: 0 0 10px;" colspan="3">{point.key}</th></tr>';
 const htmlTooltipContent = '<tr><td style="color: {series.color}; font-size: 12px;">⏺ \&nbsp </td><td>{series.name} </td><td style="text-align: right">{point.y}</td></tr>';
 const htmlTooltipFooter = '</table>';
+let gap;
+
+
 
 const renderChart = (data, amount, years, renderDuration = 1000) => {
 
-  console.log(amount)
   // shuffle array to get inital random configuration
   data = data.sort(() => Math.random() - 0.5);
   data = data.splice(0, amount);
   selectedCountries = data;
-
-  const interval = Math.round((years.latestYear - years.earliestYear) / 6)
+  
+  gap = years.latestYear - years.earliestYear
+  const interval = Math.round( (gap > 10) ? (gap / 6) : gap);
 
   const chartConfigObj = {
     title: {
@@ -264,8 +267,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     countryList.appendChild(label)
   });
   
-
-
   // SET LISTENERS AND ACTIONS
 
   // open modal btn
@@ -352,7 +353,6 @@ document.addEventListener('DOMContentLoaded', async function() {
   playBtn.addEventListener('click', function() {
     renderChart(selectedCountries, selectedCountries.length, yearRange, 8000)
   });
-
   // set range inputs and labels
   const rangeInputs = document.querySelectorAll('.year-range');
   rangeInputs.forEach((range, idx) => {
@@ -362,27 +362,42 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   });
   //min year range
-  const minYearLabel = document.querySelector('#play-controls .min-year')
-  minYearLabel.textContent = yearRange.earliestYear;
+  // const minYearLabel = document.querySelector('#play-controls .min-year')
+  // minYearLabel.textContent = yearRange.earliestYear;
   const minRangeInput = document.querySelector('#min-year-range');
+  minRangeInput.min = yearRange.earliestYear;
+  minRangeInput.max = yearRange.latestYear - 1;
+  minRangeInput.value = yearRange.earliestYear;
 
   //max year range
-  const maxYearLabel = document.querySelector('#play-controls .max-year')
-  maxYearLabel.textContent = yearRange.latestYear;
+  // const maxYearLabel = document.querySelector('#play-controls .max-year')
+  // maxYearLabel.textContent = yearRange.latestYear;
   const maxRangeInput = document.querySelector('#max-year-range');
+  maxRangeInput.min = yearRange.earliestYear + 1;
+  maxRangeInput.max = yearRange.latestYear;
+  maxRangeInput.value = yearRange.latestYear;
 
   minRangeInput.addEventListener('input', function(e) {
-    maxRangeInput.min = e.target.value;
-    minYearLabel.textContent = e.target.value;
+    // maxRangeInput.min = e.target.value;
+    // minYearLabel.textContent = e.target.value;
     yearRange.earliestYear = Number(e.target.value);
-    console.log(yearRange)
+
+    gap = yearRange.latestYear - yearRange.earliestYear;
+    console.log(gap)
+    if (gap <= 1) return;
+
     renderChart(selectedCountries, selectedCountries.length, yearRange, 0)
   });
   maxRangeInput.addEventListener('input', function(e) {
-    minRangeInput.max = e.target.value;
-    maxYearLabel.textContent = e.target.value;
+    // minRangeInput.max = e.target.value;
+    // maxYearLabel.textContent = e.target.value;
     yearRange.latestYear = Number(e.target.value);
-    console.log(yearRange)
+
+    gap = yearRange.latestYear - yearRange.earliestYear;
+    console.log(gap)
+    if (gap <= 1) return;
+
+
     renderChart(selectedCountries, selectedCountries.length, yearRange, 0)
   });
 
