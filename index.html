@@ -40,13 +40,13 @@
         </button>
       </div>
       <div class="buttons-right">
-        <button type="button" class="btn_download">
+        <button type="button" id="btn_download" class="btn_download">
           Descargar
         </button>
-        <button type="button" class="btn_share">
+        <button type="button" id="btn_share" class="btn_share">
           Compartir
         </button>
-        <button type="button" class="btn_expand">
+        <button type="button" id="btn_expand" class="btn_expand">
           <svg width="16px" height="16px" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <path d="M 175 100 L 300 100 L 300 225" fill="none" stroke="black" stroke-width="25" />
             <path d="M 100 175 L 100 300 L 225 300" fill="none" stroke="black" stroke-width="25" />
@@ -85,8 +85,10 @@
     <!-- Animation controls -->
     <div id="play-controls">
       <div class="play-section">
-        <button id="play-pause-button" class="fa fa-play" title="play"></button>
-        <label for="play-pause-button">Ver por año</label>
+        <button id="play-pause-button" title="play">
+          <i class="fa fa-play"></i>
+        </button>
+        <p>Ver por año</p>
       </div>
       <div class="range-section">
         <div class="inputs">

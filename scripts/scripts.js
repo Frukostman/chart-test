@@ -17,7 +17,7 @@ const htmlTooltipHeader = '<table style="padding: 10px;"><tr><th style="border-b
 const htmlTooltipContent = '<tr><td style="color: {series.color}; font-size: 12px;">⏺ \&nbsp </td><td>{series.name} </td><td style="text-align: right">{point.y}</td></tr>';
 const htmlTooltipFooter = '</table>';
 
-const renderChart = (data, amount, years, renderDuration = 1000) => {
+const renderChart = (data, amount = globalAmount, years, renderDuration = 1000) => {
 
   // shuffle array to get inital random configuration
   data = data.sort(() => Math.random() - 0.5);
@@ -149,13 +149,8 @@ const renderChart = (data, amount, years, renderDuration = 1000) => {
   let chart = Highcharts.chart(chartConfigObj);
 
   // chart actions
-  document.querySelector('.btn_download').addEventListener('click', function() {
-    chart.exportChart();
-  });
-
-  document.querySelector('.btn_expand').addEventListener('click', function() {
-    chart.fullscreen.toggle();
-  });
+  document.querySelector('#btn_download').addEventListener('click', () =>  chart.exportChart());
+  document.querySelector('#btn_expand').addEventListener('click', () =>  chart.fullscreen.toggle());
 };
 
 const getCSVData = async () => {
@@ -171,7 +166,7 @@ const getCountryNames = async () => {
   return data;
 };
 
-function processCountries(data) {
+const processCountries = (data) => {
   const countries = [];
   for (const country of data) {
     countries.push({
@@ -199,7 +194,7 @@ const matchCountries = (countries, nameSets) => {
   return countries;
 };
 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async () => {
 
   const rawData = await getCSVData();
   const countries = Object.values(await getCountryNames());
@@ -221,7 +216,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   };
 
   const countriesArray = [];
-  const countriesObject = seriesData.reduce((result, currentItem, idx) => {
+  const countriesObject = seriesData.reduce((result, currentItem) => {
     const name = currentItem.name;
     if (!result[name]) {
         result[name] = {
@@ -255,21 +250,21 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // open modal btn
   const selectCountriesBtn = document.querySelector('#buttons_select-countries')
-  selectCountriesBtn.addEventListener('click', function() {
+  selectCountriesBtn.addEventListener('click', () => {
     const modal = document.querySelector('#countryModal')
     modal.classList.toggle('hide');
   });
 
   // close modal btn
   const closeModalBtn = document.querySelector('#btn_close')
-  closeModalBtn.addEventListener('click', function() {
+  closeModalBtn.addEventListener('click', () => {
     const modal = document.querySelector('#countryModal')
     modal.classList.toggle('hide');
   });
 
   // select countries btn
   const submitModalBtn = document.querySelector('#btn_submit')
-  submitModalBtn.addEventListener('click', function() {
+  submitModalBtn.addEventListener('click', () => {
     const modal = document.querySelector('#countryModal')
     
     const markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -291,7 +286,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // clear modal btn
   const clearModalBtn = document.querySelector('#btn_clear')
-  clearModalBtn.addEventListener('click', function() {
+  clearModalBtn.addEventListener('click', () => {
     const markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
     markedCheckbox.forEach(el => {
       el.checked = false;
@@ -301,7 +296,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   //search modal btn
   const modalInput = document.querySelector('#modal_search')
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  modalInput.addEventListener('keyup', function() {
+  modalInput.addEventListener('keyup', () => {
     const value = modalInput.value;
     const length = value.length;
 
@@ -324,10 +319,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     }  
   });
 
-  // play animation button
+  // play animation button in 8 seconds
   const playBtn = document.querySelector('#play-pause-button');
-  playBtn.addEventListener('click', function() {
-    renderChart(selectedCountries, selectedCountries.length, yearRange, 8000)
+  playBtn.addEventListener('click', () => {
+    const time = 8000;
+    playBtn.disabled = true;
+    setTimeout(() => playBtn.disabled = false, time);
+    renderChart(selectedCountries, selectedCountries.length, yearRange, time)
   });
   // set range inputs and labels
   const rangeInputs = document.querySelectorAll('.year-range');
@@ -335,11 +333,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     range.min = yearRange.earliestYear;
     range.max = yearRange.latestYear;
     range.value = (idx === 0) ? yearRange.earliestYear : yearRange.latestYear;
-
   });
+
   //min year range
   const minYearLabel = document.querySelector('#play-controls .min-year')
   minYearLabel.textContent = yearRange.earliestYear;
+
   const minRangeInput = document.querySelector('#min-year-range');
   minRangeInput.min = yearRange.earliestYear;
   minRangeInput.max = yearRange.latestYear - 1;
@@ -348,12 +347,13 @@ document.addEventListener('DOMContentLoaded', async function() {
   //max year range
   const maxYearLabel = document.querySelector('#play-controls .max-year')
   maxYearLabel.textContent = yearRange.latestYear;
+
   const maxRangeInput = document.querySelector('#max-year-range');
   maxRangeInput.min = yearRange.earliestYear + 1;
   maxRangeInput.max = yearRange.latestYear;
   maxRangeInput.value = yearRange.latestYear;
 
-  minRangeInput.addEventListener('input', function(e) {
+  minRangeInput.addEventListener('input', (e) => {
     minYearLabel.textContent = e.target.value;
     yearRange.earliestYear = Number(e.target.value);
     gap = yearRange.latestYear - yearRange.earliestYear;
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     renderChart(selectedCountries, selectedCountries.length, yearRange, 0)
   });
 
-  maxRangeInput.addEventListener('input', function(e) {
+  maxRangeInput.addEventListener('input', (e) => {
     maxYearLabel.textContent = e.target.value;
     yearRange.latestYear = Number(e.target.value);
     gap = yearRange.latestYear - yearRange.earliestYear;
@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   });
 
   //share in FB btn
-  document.querySelector('.btn_share').addEventListener('click', function(e) {
+  document.querySelector('#btn_share').addEventListener('click', () => {
     let fbShare = 'https://www.facebook.com/sharer/sharer.php?u=';
     window.open(`${fbShare}${window.location.href}`, '_blank');
   });

@@ -159,14 +159,22 @@ button {
 
 .play-section {
     width: 20%;
-
+    display: flex;
+    align-items: center;
 }
 
-#play-pause-button {
+button#play-pause-button {
     width: 30px;
     height: 30px;
-    padding: 5px;
-    margin-right: 10px;
+    padding: 0 0 0 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+button#play-pause-button:disabled {
+    border-color: var(--c-light-green);
 }
 
 #play-pause-button:hover {
@@ -177,6 +185,7 @@ button {
     display: flex;
     flex-direction: column;
     width: 80%;
+    margin: 10px 0 0;
 }
 
 .range-refs {
@@ -278,7 +287,7 @@ input[type="range"]::-ms-thumb {
     font-weight: 400;
     letter-spacing: 1px;
     line-height: 16px;
-    margin: 20px 0 0;
+    margin: 50px 0 0;
 }
 
 .note p {
@@ -291,7 +300,7 @@ input[type="range"]::-ms-thumb {
 
 .chart-section .modal {
     position: absolute;
-    bottom: 15%;
+    bottom: 17%;
     z-index: 1;
 }
 
