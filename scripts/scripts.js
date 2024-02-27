@@ -7,7 +7,8 @@ const styling = {
 };
 
 let gap;
-let globalAmount = 4;
+let globalAmount = 5;
+const initalCountries = ['Argentina', 'World', 'Brazil', 'Chile', 'Sweden']
 let selectedCountries;
 
 const yearRange = { earliestYear: 0, latestYear: 0 };
@@ -230,6 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   countriesArray.push(...Object.values(countriesObject));
   const allCountriesComplete = matchCountries(countriesArray, countrySet);
+
   selectedCountries = allCountriesComplete;
 
   const countryList = document.querySelector('#country-list form');
@@ -244,6 +246,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     label.innerText = el.name;
     label.appendChild(input);
     countryList.appendChild(label);
+  });
+
+  const initialCountryArray = [];
+  allCountriesComplete.forEach(el => {
+    initalCountries.forEach(e => {
+      if (e === el.name) initialCountryArray.push(el);
+    });
   });
   
   // SET LISTENERS AND ACTIONS
@@ -377,6 +386,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.open(`${fbShare}${window.location.href}`, '_blank');
   });
 
-  //first initial render
-  renderChart(selectedCountries, globalAmount, yearRange);
+  //first initial render 
+  renderChart(initialCountryArray, globalAmount, yearRange);
 });
