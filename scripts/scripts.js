@@ -8,7 +8,7 @@ const styling = {
 
 let gap;
 let globalAmount = 5;
-const initalCountries = ['Argentina', 'World', 'Brazil', 'Chile', 'Sweden']
+const initalCountries = ['Argentina', 'Mundo', 'Brasil', 'Chile', 'Suecia']
 let selectedCountries;
 
 const yearRange = { earliestYear: 0, latestYear: 0 };
@@ -171,7 +171,7 @@ const processCountries = (data) => {
   const countries = [];
   for (const country of data) {
     countries.push({
-      name: country.name.common,
+      name: country.translations.spa.common,
       acronym: country.cca3
     });
   }
@@ -187,7 +187,7 @@ const matchCountries = (countries, nameSets) => {
       countries.splice(idx, 1);
     } else if ((el.name === 'OWID_WRL') || (el.name === 'OWID_USS')) {
       const acr = el.name.substring(5);
-      el.name = (acr === 'WRL') ? 'World' : acr;
+      el.name = (acr === 'WRL') ? 'Mundo' : acr;
     } else {
       console.error('error: ', el)
     }
