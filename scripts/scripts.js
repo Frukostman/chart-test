@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const seriesData = [];
   for (let i = 1; i < lines.length; i++) {
     const values = lines[i].split(',');
-    seriesData.push({ name: values[0], year: values[1], values: Number(values[2])});
+    seriesData.push({ name: values[0], year: Number(values[1]), values: Number(values[2])});
 
     if (yearRange.earliestYear > Number(values[1]) || i === 1) {
       yearRange.earliestYear = Number(values[1]);
@@ -216,20 +216,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   };
 
-  const countriesArray = [];
   const countriesObject = seriesData.reduce((result, currentItem) => {
+
     const name = currentItem.name;
     if (!result[name]) {
         result[name] = {
             name,
             data: [],
+            year: [],
         };
     }
+
+    year = yearRange.earliestYear+1
+
     result[name].data.push(currentItem.values);
+    result[name].year.push(currentItem.year);
     return result;
   }, {});
 
+  const countriesArray = [];
   countriesArray.push(...Object.values(countriesObject));
+  countriesArray.forEach(e => {
+    const yearGap = e.year[0] - yearRange.earliestYear;
+    for (let i = 0; i < yearGap; i++) {
+      e.data.unshift(null);    
+    }
+  });
+  
   const allCountriesComplete = matchCountries(countriesArray, countrySet);
 
   selectedCountries = allCountriesComplete;
